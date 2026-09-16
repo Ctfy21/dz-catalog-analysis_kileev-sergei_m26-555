@@ -131,8 +131,21 @@ def top_n_by_rating(movies: list[dict[str, Any]], n=3) -> list[tuple[str, int]]:
     sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
     return [(movie["title"], movie["rating"]) for movie in sorted_movies[:n]]
 
+
+# Этап 6
+
+def count_by_genre(movies: list[dict[str, Any]]) -> dict[str, int]:
+    dict = {}
+    for movie in movies:
+        for genres in movie["genres"]:
+            if dict.get(genres, False):
+                dict[genres] += 1
+            else:
+                dict[genres] = 1
+    return dict
+
 if __name__ == "__main__":
-    print(top_n_by_rating(movies_ds))
+    print(count_by_genre(movies_ds))
 
  
  

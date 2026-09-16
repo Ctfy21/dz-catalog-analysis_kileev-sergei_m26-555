@@ -123,13 +123,16 @@ def format_report_line(movie: dict[str, Any]) -> str:
 
 # Этап 5
 
-def titles_sorted_by_rating(movies: list[dict[str, Any]]) -> list[tuple[str, int]]:
+def titles_sorted_by_rating(movies: list[dict[str, Any]]) -> list[str]:
     sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
-    return [(movie["title"], movie["rating"]) for movie in sorted_movies]
+    return [movie["title"] for movie in sorted_movies]
 
+def top_n_by_rating(movies: list[dict[str, Any]], n=3) -> list[tuple[str, int]]:
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    return [(movie["title"], movie["rating"]) for movie in sorted_movies[:n]]
 
 if __name__ == "__main__":
-    print(titles_sorted_by_rating(movies_ds))
+    print(top_n_by_rating(movies_ds))
 
  
  

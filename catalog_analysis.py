@@ -102,8 +102,18 @@ def normalize_title(title: str) -> str:
         i += 1
     return " ".join(words)
 
+
+def make_slug(title: str) -> str:
+    new_string = ""
+    for char in title:
+        if char == " ":
+            new_string += "-"
+        else:
+            new_string += char.lower()
+    return new_string
+
 if __name__ == "__main__":
-    print(normalize_title("hello woosl adsda"))
+    print(make_slug("heAlo Voosl adsda"))
 
  
  

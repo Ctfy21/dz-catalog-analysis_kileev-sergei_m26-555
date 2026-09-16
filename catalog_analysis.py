@@ -87,8 +87,23 @@ def count_long_movies(movies: list(dict[str, Any]), threshold=120) -> int:
             counter+=1
     return counter
 
+
+# Этап 4
+
+import operator
+
+
+def normalize_title(title: str) -> str:
+    words = title.split()
+    i = 0
+    while i < len(words):
+        word = words[i]
+        words[i] = word[0].upper() + word[1:].lower()
+        i += 1
+    return " ".join(words)
+
 if __name__ == "__main__":
-    print(count_long_movies(movies_ds))
+    print(normalize_title("hello woosl adsda"))
 
  
  

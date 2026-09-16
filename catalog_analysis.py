@@ -1,3 +1,4 @@
+from email.policy import default
 from functools import reduce
 from typing import Any
 import math
@@ -51,8 +52,18 @@ def rating_tier(rating: float) -> str:
     return ratings.get(list(filter(lambda x: x <= rating, ratings))[0])
 
 
+def decode_label(year: int) -> str:
+    match year:
+        case _ if year >= 2020:
+            return "новые"
+        case _ if year >= 2015:
+            return "недавние"
+        case _:
+            return "старые"
+
+
 if __name__ == "__main__":
-    print(rating_tier(10))
+    print(decode_label(1221))
 
  
  

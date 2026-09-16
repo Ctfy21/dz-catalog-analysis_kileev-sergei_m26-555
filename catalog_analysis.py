@@ -26,7 +26,7 @@ movies_ds = [
 ]
 
 
-
+# Этап 1
 
 def average_rating(movies: list(dict[str, Any])) -> float:
     return round(sum([movie["rating"] for movie in movies]) / len(movies))
@@ -39,7 +39,20 @@ def duration_in_hours(minutes: int) -> str:
     return f'{minutes // 60}ч {minutes % 60}м'
 
 
-if __name__ == "__main__":
-    print(average_rating(movies=movies_ds))
+# Этап 2
 
-    
+def rating_tier(rating: float) -> str:
+    ratings = {
+        9: "шедевр",
+        7: "хорошо",
+        5: "средне",
+        0: "слабо"
+    }
+    return ratings.get(list(filter(lambda x: x <= rating, ratings))[0])
+
+
+if __name__ == "__main__":
+    print(rating_tier(10))
+
+ 
+ 

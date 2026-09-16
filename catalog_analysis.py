@@ -112,8 +112,16 @@ def make_slug(title: str) -> str:
             new_string += char.lower()
     return new_string
 
+
+def format_report_line(movie: dict[str, Any]) -> str:
+    genres = ", ".join(movie["genres"])
+    return (
+        f'{movie["title"]} ({movie["year"]}) - {movie["rating"]}/10 '
+        f'{duration_in_hours(movie["duration_min"])}, жанры: {genres}'
+    )
+
 if __name__ == "__main__":
-    print(make_slug("heAlo Voosl adsda"))
+    print(format_report_line(movies_ds[7]))
 
  
  

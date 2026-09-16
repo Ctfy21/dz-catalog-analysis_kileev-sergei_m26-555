@@ -29,10 +29,10 @@ movies_ds = [
 
 # Этап 1
 
-def average_rating(movies: list(dict[str, Any])) -> float:
+def average_rating(movies: list[dict[str, Any]]) -> float:
     return round(sum([movie["rating"] for movie in movies]) / len(movies))
 
-def catalog_age_stats(movies: list(dict[str, Any]), current_year=2026) -> tuple[int, int, int]:
+def catalog_age_stats(movies: list[dict[str, Any]], current_year=2026) -> tuple[int, int, int]:
     movie_years = [movie["year"] for movie in movies]
     return (min(movie_years), max(movie_years), math.ceil(sum(movie_years) / len(movie_years)))
 
@@ -64,13 +64,13 @@ def decode_label(year: int) -> str:
 
 # Этап 3
 
-def all_not_a_comedy(movies: list(dict[str, Any])):
+def all_not_a_comedy(movies: list[dict[str, Any]]):
     for movie in movies:
         if list(filter(lambda x: x == "comedy", movie["genres"])):
             continue
         print(movie["title"])
 
-def first_of_the_top(movies: list(dict[str, Any])) -> str:
+def first_of_the_top(movies: list[dict[str, Any]]) -> str:
     i = 0
     while True:
         if movies[i]["rating"] > 9.0:
@@ -80,7 +80,7 @@ def first_of_the_top(movies: list(dict[str, Any])) -> str:
             break
     return "Шедевров не найдено"
 
-def count_long_movies(movies: list(dict[str, Any]), threshold=120) -> int:
+def count_long_movies(movies: list[dict[str, Any]], threshold=120) -> int:
     counter = 0
     for movie in movies:
         if movie["duration_min"] > 120:
@@ -120,8 +120,16 @@ def format_report_line(movie: dict[str, Any]) -> str:
         f'{duration_in_hours(movie["duration_min"])}, жанры: {genres}'
     )
 
+
+# Этап 5
+
+def titles_sorted_by_rating(movies: list[dict[str, Any]]) -> list[tuple[str, int]]:
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    return [(movie["title"], movie["rating"]) for movie in sorted_movies]
+
+
 if __name__ == "__main__":
-    print(format_report_line(movies_ds[7]))
+    print(titles_sorted_by_rating(movies_ds))
 
  
  

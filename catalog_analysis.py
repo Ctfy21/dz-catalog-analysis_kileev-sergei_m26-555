@@ -29,13 +29,17 @@ movies_ds = [
 
 
 def average_rating(movies: list(dict[str, Any])) -> float:
-    return sum([movie["rating"] for movie in movies]) / len(movies)
+    return round(sum([movie["rating"] for movie in movies]) / len(movies))
 
 def catalog_age_stats(movies: list(dict[str, Any]), current_year=2026) -> tuple[int, int, int]:
     movie_years = [movie["year"] for movie in movies]
     return (min(movie_years), max(movie_years), math.ceil(sum(movie_years) / len(movie_years)))
 
+def duration_in_hours(minutes: int) -> str:
+    return f'{minutes // 60}ч {minutes % 60}м'
+
+
 if __name__ == "__main__":
-    print(catalog_age_stats(movies_ds))
+    print(average_rating(movies=movies_ds))
 
     

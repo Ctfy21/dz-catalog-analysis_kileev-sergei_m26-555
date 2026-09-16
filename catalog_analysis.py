@@ -62,8 +62,16 @@ def decode_label(year: int) -> str:
             return "старые"
 
 
+# Этап 3
+
+def all_not_a_comedy(movies: list(dict[str, Any])) -> str:
+    for movie in movies:
+        if list(filter(lambda x: x == "comedy", movie["genres"])):
+            continue
+        print(movie["title"])
+
 if __name__ == "__main__":
-    print(decode_label(1221))
+    all_not_a_comedy(movies_ds)
 
  
  

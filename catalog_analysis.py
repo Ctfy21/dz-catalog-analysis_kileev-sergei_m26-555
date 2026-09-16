@@ -64,14 +64,23 @@ def decode_label(year: int) -> str:
 
 # Этап 3
 
-def all_not_a_comedy(movies: list(dict[str, Any])) -> str:
+def all_not_a_comedy(movies: list(dict[str, Any])):
     for movie in movies:
         if list(filter(lambda x: x == "comedy", movie["genres"])):
             continue
         print(movie["title"])
 
+def first_of_the_top(movies: list(dict[str, Any])) -> str:
+    i = 0
+    while i < len(movies):
+        if movies[i]["rating"] > 9.0:
+            return movies[i]["title"]
+        i+=1
+    return "Шедевров не найдено"
+
+
 if __name__ == "__main__":
-    all_not_a_comedy(movies_ds)
+    print(first_of_the_top(movies_ds))
 
  
  

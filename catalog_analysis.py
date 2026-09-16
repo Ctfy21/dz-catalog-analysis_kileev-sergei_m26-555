@@ -80,9 +80,15 @@ def first_of_the_top(movies: list(dict[str, Any])) -> str:
             break
     return "Шедевров не найдено"
 
+def count_long_movies(movies: list(dict[str, Any]), threshold=120) -> int:
+    counter = 0
+    for movie in movies:
+        if movie["duration_min"] > 120:
+            counter+=1
+    return counter
 
 if __name__ == "__main__":
-    print(first_of_the_top(movies_ds))
+    print(count_long_movies(movies_ds))
 
  
  

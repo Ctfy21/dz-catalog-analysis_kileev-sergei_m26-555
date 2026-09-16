@@ -1,6 +1,6 @@
 from functools import reduce
 from typing import Any
-
+import math
 
 movies_ds = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
@@ -31,7 +31,11 @@ movies_ds = [
 def average_rating(movies: list(dict[str, Any])) -> float:
     return sum([movie["rating"] for movie in movies]) / len(movies)
 
+def catalog_age_stats(movies: list(dict[str, Any]), current_year=2026) -> tuple[int, int, int]:
+    movie_years = [movie["year"] for movie in movies]
+    return (min(movie_years), max(movie_years), math.ceil(sum(movie_years) / len(movie_years)))
+
 if __name__ == "__main__":
-    print(average_rating(movies_ds))
+    print(catalog_age_stats(movies_ds))
 
     

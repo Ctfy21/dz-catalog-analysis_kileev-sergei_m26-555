@@ -192,7 +192,7 @@ def iter_high_rated(movies: list[dict[str, Any]], min_rating=8.0) -> Generator[s
     
 if __name__ == "__main__":
     for movie in iter_high_rated(movies_ds):
-        print(movie)
+        print(format_report_line(movie))
 
  
  

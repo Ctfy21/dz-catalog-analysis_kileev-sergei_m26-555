@@ -180,8 +180,19 @@ def genres_only_in_one(movies_a: list[dict[str, Any]], movies_b: list[dict[str, 
     return set_movies_a - set_movies_b
 
 
+# Этап 8
+
+from typing import Generator
+
+def iter_high_rated(movies: list[dict[str, Any]], min_rating=8.0) -> Generator[str, None, None]:
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+    
 if __name__ == "__main__":
-    print(genres_only_in_one(movies_ds[0:2], movies_ds[2:3]))
+    for movie in iter_high_rated(movies_ds):
+        print(movie)
 
  
  

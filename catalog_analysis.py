@@ -159,6 +159,8 @@ def title_above_average_rating(movies: list[dict[str, Any]]) -> dict[str, int]:
     rated_movies = list(filter(lambda x: x["rating"] > average_rating(movies), movies))
     return {movie["title"]: movie["rating"] for movie in rated_movies}
 
+# Этап 7
+
 def all_genres(movies: list[dict[str, Any]]) -> set[str]:
     film_genres_set = set()
     for movie in movies:
@@ -168,8 +170,18 @@ def all_genres(movies: list[dict[str, Any]]) -> set[str]:
 def common_actors(movie1: dict[str, Any], movie2: dict[str, Any]) -> set[str]:
     return set([actor for actor in movie1["actors"]]) & set([actor for actor in movie2["actors"]])
 
+def genres_only_in_one(movies_a: list[dict[str, Any]], movies_b: list[dict[str, Any]]) -> set[str]:
+    set_movies_a = set()
+    set_movies_b = set()
+    for movie_a in movies_a:
+        set_movies_a = set_movies_a | set([genre for genre in movie_a["genres"]])
+    for movie_b in movies_b:
+        set_movies_b = set_movies_b | set([genre for genre in movie_b["genres"]])
+    return set_movies_a - set_movies_b
+
+
 if __name__ == "__main__":
-    print(common_actors(movies_ds[0], movies_ds[3]))
+    print(genres_only_in_one(movies_ds[0:2], movies_ds[2:3]))
 
  
  

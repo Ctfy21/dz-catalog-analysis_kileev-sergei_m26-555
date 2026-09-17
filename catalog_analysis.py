@@ -165,9 +165,11 @@ def all_genres(movies: list[dict[str, Any]]) -> set[str]:
         film_genres_set = film_genres_set | set([genre for genre in movie["genres"]])
     return film_genres_set
 
+def common_actors(movie1: dict[str, Any], movie2: dict[str, Any]) -> set[str]:
+    return set([actor for actor in movie1["actors"]]) & set([actor for actor in movie2["actors"]])
 
 if __name__ == "__main__":
-    print(all_genres(movies_ds))
+    print(common_actors(movies_ds[0], movies_ds[3]))
 
  
  

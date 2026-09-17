@@ -1,11 +1,10 @@
-from email.policy import default
-from functools import reduce
-from typing import Any
 import math
+from typing import Any, Generator
 
 movies_ds = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
-     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
+     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", 
+     "O. Isaac"]},
     {"title": "Kitchen Stories", "year": 2019, "genres": {"comedy", "drama"},
      "rating": 7.1, "duration_min": 98, "actors": ["A. Novak", "M. Ferguson"]},
     {"title": "silent hours", "year": 2016, "genres": {"thriller", "drama"},
@@ -30,11 +29,15 @@ movies_ds = [
 # Этап 1
 
 def average_rating(movies: list[dict[str, Any]]) -> float:
-    return round(number=sum([movie["rating"] for movie in movies]) / len(movies), ndigits=2)
+    return round(number=sum([movie["rating"] for movie in movies]) / len(movies), 
+    ndigits=2)
 
-def catalog_age_stats(movies: list[dict[str, Any]], current_year=2026) -> tuple[int, int, int]:
+
+def catalog_age_stats(movies: list[dict[str, Any]], 
+current_year=2026) -> tuple[int, int, int]:
     movie_years = [movie["year"] for movie in movies]
-    return (current_year - min(movie_years), current_year - max(movie_years), math.ceil(current_year - (sum(movie_years) / len(movie_years))))
+    return (current_year - min(movie_years), current_year - max(movie_years), 
+    math.ceil(current_year - (sum(movie_years) / len(movie_years))))
 
 def duration_in_hours(minutes: int) -> str:
     return f'{minutes // 60}ч {minutes % 60}м'
@@ -90,8 +93,6 @@ def count_long_movies(movies: list[dict[str, Any]], threshold=120) -> int:
 
 # Этап 4
 
-import operator
-
 
 def normalize_title(title: str) -> str:
     words = title.split()
@@ -142,7 +143,8 @@ def count_by_genre(movies: list[dict[str, Any]]) -> dict[str, int]:
                 dict_genres[genres] += 1
             else:
                 dict_genres[genres] = 1
-    return dict(sorted(dict_genres.items(), key=lambda counter: counter[1], reverse=True))
+    return dict(sorted(dict_genres.items(), key=lambda counter: counter[1], 
+    reverse=True))
 
 
 def actor_filmography(movies: list[dict[str, Any]]) -> dict[str, int]:
@@ -168,9 +170,12 @@ def all_genres(movies: list[dict[str, Any]]) -> set[str]:
     return film_genres_set
 
 def common_actors(movie1: dict[str, Any], movie2: dict[str, Any]) -> set[str]:
-    return set([actor for actor in movie1["actors"]]) & set([actor for actor in movie2["actors"]])
+    return set([actor for actor in movie1["actors"]]) & set(
+        [actor for actor in movie2["actors"]])
 
-def genres_only_in_one(movies_a: list[dict[str, Any]], movies_b: list[dict[str, Any]]) -> set[str]:
+
+def genres_only_in_one(movies_a: list[dict[str, Any]], 
+movies_b: list[dict[str, Any]]) -> set[str]:
     set_movies_a = set()
     set_movies_b = set()
     for movie_a in movies_a:
@@ -182,9 +187,8 @@ def genres_only_in_one(movies_a: list[dict[str, Any]], movies_b: list[dict[str, 
 
 # Этап 8
 
-from typing import Generator
-
-def iter_high_rated(movies: list[dict[str, Any]], min_rating=8.0) -> Generator[str, None, None]:
+def iter_high_rated(movies: list[dict[str, Any]], 
+min_rating=8.0) -> Generator[str, None, None]:
     for movie in movies:
         if movie["rating"] >= min_rating:
             yield movie

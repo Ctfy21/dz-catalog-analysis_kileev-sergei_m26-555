@@ -144,8 +144,19 @@ def count_by_genre(movies: list[dict[str, Any]]) -> dict[str, int]:
                 dict[genres] = 1
     return dict
 
+
+def actor_filmography(movies: list[dict[str, Any]]) -> dict[str, int]:
+    dict = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            if dict.get(actor, False):
+                dict[actor].append(movie["title"])
+            else:
+                dict[actor] = [movie["title"]]
+    return dict
+
 if __name__ == "__main__":
-    print(count_by_genre(movies_ds))
+    print(actor_filmography(movies_ds))
 
  
  

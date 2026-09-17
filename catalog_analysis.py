@@ -30,11 +30,11 @@ movies_ds = [
 # Этап 1
 
 def average_rating(movies: list[dict[str, Any]]) -> float:
-    return round(sum([movie["rating"] for movie in movies]) / len(movies))
+    return round(number=sum([movie["rating"] for movie in movies]) / len(movies), ndigits=2)
 
 def catalog_age_stats(movies: list[dict[str, Any]], current_year=2026) -> tuple[int, int, int]:
     movie_years = [movie["year"] for movie in movies]
-    return (min(movie_years), max(movie_years), math.ceil(sum(movie_years) / len(movie_years)))
+    return (current_year - min(movie_years), current_year - max(movie_years), math.ceil(current_year - (sum(movie_years) / len(movie_years))))
 
 def duration_in_hours(minutes: int) -> str:
     return f'{minutes // 60}ч {minutes % 60}м'
@@ -135,14 +135,14 @@ def top_n_by_rating(movies: list[dict[str, Any]], n=3) -> list[tuple[str, int]]:
 # Этап 6
 
 def count_by_genre(movies: list[dict[str, Any]]) -> dict[str, int]:
-    dict = {}
+    dict_genres = {}
     for movie in movies:
         for genres in movie["genres"]:
-            if dict.get(genres, False):
-                dict[genres] += 1
+            if dict_genres.get(genres, False):
+                dict_genres[genres] += 1
             else:
-                dict[genres] = 1
-    return dict
+                dict_genres[genres] = 1
+    return dict(sorted(dict_genres.items(), key=lambda counter: counter[1], reverse=True))
 
 
 def actor_filmography(movies: list[dict[str, Any]]) -> dict[str, int]:
@@ -189,10 +189,51 @@ def iter_high_rated(movies: list[dict[str, Any]], min_rating=8.0) -> Generator[s
         if movie["rating"] >= min_rating:
             yield movie
 
-    
+def time_summation(movies: list[dict[str, Any]]) -> int:
+    return sum(
+        movie["duration_min"] for movie in movies if movie["rating"] > 7
+    )
+
+
+# Этап 9
+
+def build_report(movies: list[dict[str, Any]]):
+
+    genre_counts = "\n  ".join(
+        f"{genre}: {count}" for genre, count in count_by_genre(movies).items()
+    )
+
+    top3_lines = "\n  ".join(
+        (
+            format_report_line(movie)
+        )
+        for movie in sorted(
+            iter_high_rated(movies),
+            key=lambda movie: movie["rating"],
+            reverse=True,
+        )[:3]
+    )
+
+    final_report_string = f"""
+ОТЧЕТ ПО КАТАЛОГУ
+Средний рейтинг: {average_rating(movies)}
+Средний возраст фильмов: {catalog_age_stats(movies)[2]}
+
+Топ-3 фильма:
+  {top3_lines}
+
+Фильмов по жанрам:
+  {genre_counts}
+
+Все жанры каталога: {", ".join(all_genres(movies))}
+    """
+
+    return final_report_string
+
+
+
 if __name__ == "__main__":
-    for movie in iter_high_rated(movies_ds):
-        print(format_report_line(movie))
+    print(build_report(movies_ds))
 
  
  

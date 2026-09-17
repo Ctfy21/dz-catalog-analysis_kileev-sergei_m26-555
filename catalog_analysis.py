@@ -159,8 +159,15 @@ def title_above_average_rating(movies: list[dict[str, Any]]) -> dict[str, int]:
     rated_movies = list(filter(lambda x: x["rating"] > average_rating(movies), movies))
     return {movie["title"]: movie["rating"] for movie in rated_movies}
 
+def all_genres(movies: list[dict[str, Any]]) -> set[str]:
+    film_genres_set = set()
+    for movie in movies:
+        film_genres_set = film_genres_set | set([genre for genre in movie["genres"]])
+    return film_genres_set
+
+
 if __name__ == "__main__":
-    print(title_above_average_rating(movies_ds))
+    print(all_genres(movies_ds))
 
  
  

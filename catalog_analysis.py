@@ -155,8 +155,12 @@ def actor_filmography(movies: list[dict[str, Any]]) -> dict[str, int]:
                 dict[actor] = [movie["title"]]
     return dict
 
+def title_above_average_rating(movies: list[dict[str, Any]]) -> dict[str, int]:
+    rated_movies = list(filter(lambda x: x["rating"] > average_rating(movies), movies))
+    return {movie["title"]: movie["rating"] for movie in rated_movies}
+
 if __name__ == "__main__":
-    print(actor_filmography(movies_ds))
+    print(title_above_average_rating(movies_ds))
 
  
  
